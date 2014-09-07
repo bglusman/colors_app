@@ -15,6 +15,10 @@ class PersistentQueue
     @queues[name].enqueue(object)
   end
 
+  def self.<<(val)
+    self.enqueue(val)
+  end
+
   def self.setup(name)
     @queues       ||= {}
     @queues[name] ||= new(name: name)

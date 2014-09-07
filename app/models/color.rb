@@ -22,4 +22,8 @@ class Color
     (MIN_SHADE..MAX_SHADE).include?(shade)
   end
 
+  def ==(other)
+    red == other.red && blue == other.blue && green == other.green
+  end
+
 end
