@@ -43,8 +43,8 @@ group :development, :test do
   # Access an IRB console on exceptions page and /console in development
   gem 'pry'
   gem 'rspec-rails'
-
-  gem 'capybara-webkit'
+  gem 'capybara'
+  gem 'selenium-webdriver'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

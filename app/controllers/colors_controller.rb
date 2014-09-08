@@ -3,7 +3,9 @@ class ColorsController < ApplicationController
   end
 
   def create
-    #modifies state of server, so using a POST action
-    render json: PersistentQueue.dequeue
+    Rails.logger.info("popping from queue #{RedisQueue.default_queue}")
+    color = RedisQueue.dequeue
+    Rails.logger.info("popped color #{color} from queue #{RedisQueue.default_queue}")
+    render json: color
   end
 end

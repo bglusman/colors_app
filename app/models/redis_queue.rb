@@ -1,7 +1,7 @@
 require 'base64'
 require 'redis'
 
-class PersistentQueue
+class RedisQueue
   attr_reader :name
   DEFAULT_NAME = 'colors'
 

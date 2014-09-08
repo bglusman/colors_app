@@ -9,6 +9,25 @@ feature "Test Color Changes", type: :feature, js: true do
   scenario "User clicks color button" do
     visit('/')
     click_button("Colors!")
-    expect(page).to have_content 'Coming right up!' #test for side effect of click
+    expect(page).to have_content 'Coming right up!'
   end
+
+  scenario "triggering bgColorChange event changes color" do
+    visit('/')
+    page.execute_script("$(document).trigger('changeBgColor', [{red:5, blue: 5, green: 5}])")
+    page.find('html')['style'].should == 'background-color: rgb(5, 5, 5);'
+  end
+
+  scenario "polls backend on click" do
+    visit('/')
+    # controller = double("ColorsController")
+    # expect(ColorsController).to receive(:new).and_return(controller)
+    expect_any_instance_of(ColorsController).to receive(:create)
+    # click_button("Colors!")
+    page.execute_script("$.ajax({type: 'post', url: '/', success: function(data){
+      $(document).trigger('changeBgColor', [data])
+      }, dataType: 'js' })")
+
+  end
+
 end

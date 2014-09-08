@@ -5,7 +5,7 @@ class ColorGenerator
   end
 
   def self.perform
-    PersistentQueue << Color.new(red: rand_shade, blue: rand_shade, green: rand_shade)
+    RedisQueue << Color.new(red: rand_shade, blue: rand_shade, green: rand_shade)
     Resque.enqueue_in(3.seconds, ColorGenerator)
   end
 
