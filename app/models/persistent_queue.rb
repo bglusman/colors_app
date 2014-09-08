@@ -39,7 +39,7 @@ class PersistentQueue
 
   def redis
     @redis ||= begin
-      Redis.new #default port, etc, can pass in options to new if needed
+      $redis || Redis.new #default port, etc, can pass in options to new if needed
     end
   end
 
