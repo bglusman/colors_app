@@ -39,8 +39,8 @@ class PersistentQueue
 
   def redis
     @redis ||= begin
-      if ENV["REDISTOGO_URL"]
-        uri = URI.parse(ENV["REDISTOGO_URL"])
+      if ENV["REDISCLOUD_URL"] && !$redis
+        uri = URI.parse(ENV["REDISCLOUD_URL"])
         $redis = Redis.new(url: uri)
       end
       $redis || Redis.new #default port, etc, can pass in options to new if needed
