@@ -19,8 +19,13 @@ class PersistentQueue
     self.enqueue(val)
   end
 
+  def self.default_queue
+    setup(DEFAULT_NAME)
+    @queues[DEFAULT_NAME]
+  end
+
   def self.setup(name)
-    @queues       ||= {}
+    @queues       ||= ThreadSafe::Hash.new
     @queues[name] ||= new(name: name)
   end
 
