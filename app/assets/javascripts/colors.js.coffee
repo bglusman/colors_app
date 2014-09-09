@@ -5,11 +5,13 @@ setUpListenerForBgColorChanges = ->
 
 pollIntervalInMilliseconds = 3000
 
+getNewColor = ->
+  $.post '/', (data)->
+    $(document).trigger('changeBgColor', [data])
+
 pollBgForColors = ->
-  setInterval ->
-    $.post '/', (data)->
-      $(document).trigger('changeBgColor', [data])
-  , pollIntervalInMilliseconds
+  getNewColor()
+  setInterval getNewColor, pollIntervalInMilliseconds
 
 alertUserOnClick = ->
   $('#colors').html('<span>Coming right up!</span>')
@@ -19,5 +21,5 @@ clicked = null
 $(document).on 'click', '#colors', (event)->
   unless clicked
     clicked = true
-    pollBgForColors()
     alertUserOnClick()
+    pollBgForColors()

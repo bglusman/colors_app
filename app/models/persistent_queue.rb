@@ -3,7 +3,8 @@ require 'redis'
 
 class PersistentQueue
   attr_reader :name
-  DEFAULT_NAME = 'colors'
+  DEFAULT_NAME    = 'colors'
+  DEFAULT_TIMEOUT = 3
 
   def self.dequeue(name: DEFAULT_NAME)
     setup(name)
@@ -38,8 +39,8 @@ class PersistentQueue
   end
   alias :<< :enqueue
 
-  def dequeue
-    decode(redis.blpop(name).last)
+  def dequeue(timeout=DEFAULT_TIMEOUT)
+    decode(redis.blpop(name, timeout).try(:last))
   end
 
   def redis
