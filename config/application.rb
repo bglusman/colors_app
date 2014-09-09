@@ -23,17 +23,5 @@ module Colors
 
     # For not swallow errors in after_commit/after_rollback callbacks.
     # config.active_record.raise_in_transactional_callbacks = true
-
-    # Do not load entire app when precompiling assets
-    config.assets.initialize_on_precompile = false
   end
 end
-
-# module AssetsInitializers
-#   class Railtie < Rails::Railtie
-#     initializer "assets_initializers.initialize_rails",
-#                 :group => :assets do |app|
-#       require "#{Rails.root}/config/initializers/load_config.rb"
-#     end
-#   end
-# end
